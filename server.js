@@ -13,9 +13,10 @@ const app = express();
 
 // Enable CORS for frontend on localhost:3000 and allow credentials
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://task-tracker-frontend-roan.vercel.app',
   credentials: true,
 }));
+
 
 // Middleware
 app.use(express.json());
