@@ -24,7 +24,10 @@ app.use(cookieParser());
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
-
+// Add this route to respond to base URL requests
+app.get('/', (req, res) => {
+  res.send('Task Tracker Backend is running');
+});
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
   // useNewUrlParser: true,
