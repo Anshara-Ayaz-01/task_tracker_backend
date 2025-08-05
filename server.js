@@ -14,8 +14,6 @@ const app = express();
 // CORS for Vercel frontend
 app.use(cors({
   origin: [
-    'https://task-tracker-frontend-roan.vercel.app',
-    // 'https://task-tracker-frontend-226yr1wsd-anshara-ayazs-projects.vercel.app'
     'https://task-tracker-frontend-f6aksx19j-anshara-ayazs-projects.vercel.app'
   ],
   credentials: true,
