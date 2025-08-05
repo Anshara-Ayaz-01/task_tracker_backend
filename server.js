@@ -11,12 +11,14 @@ dotenv.config();
 
 const app = express();
 
-// Enable CORS for frontend on localhost:3000 and allow credentials
+// CORS for Vercel frontend
 app.use(cors({
-  origin: 'https://task-tracker-frontend-roan.vercel.app',
+  origin: [
+    'https://task-tracker-frontend-roan.vercel.app',
+    'https://task-tracker-frontend-226yr1wsd-anshara-ayazs-projects.vercel.app'
+  ],
   credentials: true,
 }));
-
 
 // Middleware
 app.use(express.json());
@@ -25,17 +27,17 @@ app.use(cookieParser());
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
-// Add this route to respond to base URL requests
+
+// Health check route
 app.get('/', (req, res) => {
   res.send('Task Tracker Backend is running');
 });
-// MongoDB Connection
-mongoose.connect(process.env.MONGO_URI, {
-  // useNewUrlParser: true,
-  // useUnifiedTopology: true,
-})
-.then(() => {
-  console.log(' Connected to MongoDB');
-  app.listen(5000, () => console.log('Server running on port 5000'));
-})
-.catch((err) => console.error(' DB Connection Error:', err));
+
+// MongoDB Connection & Server Start
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log('✅ Connected to MongoDB');
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+  })
+  .catch((err) => console.error('❌ DB Connection Error:', err));
